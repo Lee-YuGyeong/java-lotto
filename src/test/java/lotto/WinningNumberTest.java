@@ -43,12 +43,28 @@ class WinningNumberTest {
 
 
         LottoRow row1 = new LottoRow(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(7))); // 2등
-        LottoRow row2 = new LottoRow(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(8))); // 3등
-        LottoTicket lottoTicket = new LottoTicket(List.of(row1, row2));
+        LottoTicket lottoTicket = new LottoTicket(List.of(row1));
 
         Map<Prize, Integer> winningList = winningNumber.calculate(lottoTicket);
 
         assertThat(winningList.get(Prize.SECOND)).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("당첨 로또 개수 계산_3등")
+    void 당첨_로또_개수_계산_3등() {
+
+        WinningNumber winningNumber = new WinningNumber(List.of(
+            new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+            new LottoNumber(5), new LottoNumber(6))
+            , new LottoNumber(7));
+
+
+        LottoRow row2 = new LottoRow(List.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(8))); // 3등
+        LottoTicket lottoTicket = new LottoTicket(List.of(row2));
+
+        Map<Prize, Integer> winningList = winningNumber.calculate(lottoTicket);
+
         assertThat(winningList.get(Prize.THIRD)).isEqualTo(1);
     }
 }
